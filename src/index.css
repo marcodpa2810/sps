@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply font-body text-steel-600 antialiased bg-steel-50;
+    margin: 0;
+    overflow-x: hidden;
+    font-feature-settings: 'cv05', 'ss01';
+  }
+
+  #root {
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-ink-900;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  p { margin: 0; text-wrap: pretty; }
+
+  ::selection {
+    background: #0057B8;
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #0057B8;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* ── Buttons (one shape system: pill-rounded 12px, locked) ── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-semibold text-sm rounded-xl
+           px-6 py-3.5 transition-[transform,box-shadow,background-color,color] duration-200
+           active:scale-[0.97] select-none;
+    min-height: 48px;
+  }
+  .btn-primary {
+    @apply btn bg-brand-blue text-white shadow-lift-blue
+           hover:-translate-y-0.5 hover:bg-[#0061CE];
+  }
+  .btn-red {
+    @apply btn bg-brand-red text-white shadow-[0_18px_50px_-18px_rgba(197,25,45,0.5)]
+           hover:-translate-y-0.5 hover:bg-[#D81E34];
+  }
+  .btn-ghost-light {
+    @apply btn border border-white/15 text-white bg-white/[0.03] backdrop-blur-sm
+           hover:bg-white/10 hover:-translate-y-0.5;
+  }
+  .btn-ghost-dark {
+    @apply btn border border-steel-300 text-ink-800 bg-white
+           hover:border-ink-800 hover:-translate-y-0.5;
+  }
+
+  /* ── Technical mono label (used for DATA, not as a generic eyebrow) ── */
+  .mono-label {
+    @apply font-mono text-[11px] uppercase tracking-[0.2em] text-steel-400;
+  }
+
+  /* ── Section headline scale ── */
+  .h-display {
+    @apply font-display font-bold text-ink-900 leading-[1.02] tracking-tightest;
+    font-size: clamp(2rem, 1.2rem + 3.4vw, 3.6rem);
+  }
+  .h-section {
+    @apply font-display font-bold text-ink-900 leading-[1.05] tracking-tightest;
+    font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.9rem);
+  }
+
+  /* ── Spotlight border card: a blue edge follows the cursor ── */
+  .spotlight-card {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: radial-gradient(
+      220px circle at var(--mx, 50%) var(--my, 0%),
+      rgba(0, 87, 184, 0.55),
+      transparent 60%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .spotlight-card:hover::before { opacity: 1; }
+}
+
+@layer utilities {
+  /* Blueprint grid texture (intentional brand motif, used sparingly) */
+  .bp-grid {
+    background-image:
+      linear-gradient(rgba(125, 160, 210, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125, 160, 210, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .bp-grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%);
+  }
+
+  /* Diagonal corner-clip for the engineered photo frame */
+  .clip-corner {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+  }
+
+  /* ── Industrial HUD effects ── */
+  .crt-scan {
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 87, 184, 0.03) 2px,
+      rgba(0, 87, 184, 0.03) 4px
+    );
+    background-size: 100% 4px;
+  }
+  .glow-hover {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .glow-hover:hover {
+    box-shadow: 0 0 20px rgba(0, 87, 184, 0.15), 0 0 40px rgba(0, 87, 184, 0.05);
+  }
+  .pipeline-flow {
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(61, 139, 232, 0.3) 0,
+      rgba(61, 139, 232, 0.3) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  }
+}
+
+@keyframes flow {
+  to { background-position: 8px 0; }
+}
+
+@keyframes fadeRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: #EDF1F7; }
+::-webkit-scrollbar-thumb { background: #C2CDDD; border-radius: 9999px; border: 2px solid #EDF1F7; }
+::-webkit-scrollbar-thumb:hover { background: #94A4BC; }
