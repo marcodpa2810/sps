@@ -11,6 +11,7 @@ export default {
           red: '#C5192D',
           redLight: '#E23B4E',
         },
+        primary: '#F4F8FF',
         // Ink / dark surfaces (engineered navy, no pure black)
         ink: {
           950: '#070D18',
@@ -34,8 +35,9 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        display: ['"Barlow Condensed"', 'system-ui', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['"Barlow Condensed"', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {

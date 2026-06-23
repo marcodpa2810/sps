@@ -40,7 +40,7 @@ export default function Contacto() {
     if (errors[event.target.name]) setErrors({ ...errors, [event.target.name]: '' })
   }
 
-  const inputClass = 'w-full border border-steel-300 bg-white px-4 py-3 text-base text-ink-900 outline-none transition focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20'
+  const inputClass = 'w-full rounded-2xl border border-steel-200 bg-white px-4 py-3 text-sm text-ink-900 outline-none transition placeholder:text-steel-400 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20'
 
   return (
     <>
@@ -52,33 +52,33 @@ export default function Contacto() {
         image={media.heroContact}
       />
 
-      <section className="bg-steel-50 py-20 lg:py-28">
+      <section className="bg-white py-20 text-ink-900 lg:py-28">
         <div className="mx-auto grid max-w-[1400px] gap-10 px-4 sm:px-6 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
           <Reveal>
-            <h2 className="h-section mb-6">Canales directos</h2>
+            <h2 className="mb-6 font-display text-2xl font-bold leading-tight text-ink-900 sm:text-3xl">Canales directos</h2>
             <div className="space-y-4">
-              <div className="border border-steel-200 bg-white p-6">
+              <div className="rounded-[1.5rem] border border-steel-200 bg-steel-50 p-6">
                 <MapPin size={28} className="mb-4 text-brand-red" />
-                <h3 className="font-display text-2xl font-bold text-ink-900">San Francisco, Maracaibo</h3>
-                <p className="mt-2 text-lg leading-relaxed text-steel-600">
+                <h3 className="font-display text-xl font-bold text-ink-900">San Francisco, Maracaibo</h3>
+                <p className="mt-2 text-sm leading-relaxed text-steel-600">
                   Av. 5, Calle 13, N 26A-162<br />
                   Zulia, Venezuela
                 </p>
               </div>
-              <div className="border border-steel-200 bg-white p-6">
-                <Phone size={28} className="mb-4 text-brand-blue" />
-                <h3 className="font-display text-2xl font-bold text-ink-900">Telefonos</h3>
-                <a href="tel:+582613226494" className="mt-2 block text-lg font-semibold text-steel-700 hover:text-brand-blue">
+              <div className="rounded-[1.5rem] border border-steel-200 bg-steel-50 p-6">
+                <Phone size={28} className="mb-4 text-brand-blueLight" />
+                <h3 className="font-display text-xl font-bold text-ink-900">Telefonos</h3>
+                <a href="tel:+582613226494" className="mt-2 block text-sm font-semibold text-steel-700 hover:text-brand-blue">
                   0261 322 6494
                 </a>
-                <a href="tel:+584146361373" className="block text-lg font-semibold text-steel-700 hover:text-brand-blue">
+                <a href="tel:+584146361373" className="block text-sm font-semibold text-steel-700 hover:text-brand-blue">
                   +58 414 636 1373
                 </a>
               </div>
-              <div className="border border-steel-200 bg-white p-6">
-                <Clock size={28} className="mb-4 text-brand-blue" />
-                <h3 className="font-display text-2xl font-bold text-ink-900">Respuesta tecnica</h3>
-                <p className="mt-2 text-lg leading-relaxed text-steel-600">
+              <div className="rounded-[1.5rem] border border-steel-200 bg-steel-50 p-6">
+                <Clock size={28} className="mb-4 text-brand-blueLight" />
+                <h3 className="font-display text-xl font-bold text-ink-900">Respuesta tecnica</h3>
+                <p className="mt-2 text-sm leading-relaxed text-steel-600">
                   Para servicios de vapor, saneamiento, tanques, mantenimiento, telemetria o automatizacion.
                 </p>
               </div>
@@ -86,20 +86,20 @@ export default function Contacto() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="border border-steel-200 bg-white p-6 shadow-lift sm:p-8 lg:p-10">
+            <div className="rounded-[2rem] border border-steel-200 bg-steel-50 p-6 shadow-lift sm:p-8 lg:p-10">
               {submitted ? (
                 <div className="py-16 text-center">
                   <CheckCircle size={64} weight="fill" className="mx-auto text-emerald-600" />
-                  <h3 className="mt-6 font-display text-4xl font-bold text-ink-900">Solicitud registrada</h3>
-                  <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-steel-600">
+                  <h3 className="mt-6 font-display text-2xl font-bold text-ink-900">Solicitud registrada</h3>
+                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-steel-600">
                     Ya tenemos la informacion base. Puedes usar los telefonos de contacto para seguimiento inmediato.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-5">
                   <div>
-                    <h2 className="font-display text-4xl font-bold text-ink-900">Datos del servicio</h2>
-                    <p className="mt-2 text-base text-steel-500">Campos clave para orientar la respuesta de SPS.</p>
+                    <h2 className="font-display text-2xl font-bold text-ink-900">Datos del servicio</h2>
+                    <p className="mt-2 text-sm text-steel-500">Campos clave para orientar la respuesta de SPS.</p>
                   </div>
 
                   <div className="grid gap-5 sm:grid-cols-2">
@@ -111,7 +111,7 @@ export default function Contacto() {
 
                   <div className="grid gap-5 sm:grid-cols-2">
                     <label className="block">
-                      <span className="mb-2 block text-base font-bold text-ink-900">Servicio requerido</span>
+                      <span className="mb-2 block text-sm font-bold text-ink-900">Servicio requerido</span>
                       <select name="service" value={form.service} onChange={handleChange} className={inputClass}>
                         <option value="">Seleccionar</option>
                         {serviceGroups.map((group) => (
@@ -123,7 +123,7 @@ export default function Contacto() {
                   </div>
 
                   <label className="block">
-                    <span className="mb-2 block text-base font-bold text-ink-900">Urgencia</span>
+                    <span className="mb-2 block text-sm font-bold text-ink-900">Urgencia</span>
                     <select name="urgency" value={form.urgency} onChange={handleChange} className={inputClass}>
                       <option value="">Seleccionar</option>
                       <option>Atencion inmediata</option>
@@ -134,7 +134,7 @@ export default function Contacto() {
                   </label>
 
                   <label className="block">
-                    <span className="mb-2 block text-base font-bold text-ink-900">Descripcion del trabajo</span>
+                    <span className="mb-2 block text-sm font-bold text-ink-900">Descripcion del trabajo</span>
                     <textarea
                       name="message"
                       rows={6}
@@ -146,7 +146,7 @@ export default function Contacto() {
                     {errors.message && <ErrorText>{errors.message}</ErrorText>}
                   </label>
 
-                  <button type="submit" className="btn-primary w-full rounded-none text-base">
+                  <button type="submit" className="btn-primary w-full rounded-none text-sm">
                     Enviar solicitud <PaperPlaneTilt size={20} weight="fill" />
                   </button>
                 </form>
@@ -162,7 +162,7 @@ export default function Contacto() {
 function Field({ label, name, value, onChange, error, className, type = 'text' }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-base font-bold text-ink-900">{label}</span>
+      <span className="mb-2 block text-sm font-bold text-ink-900">{label}</span>
       <input name={name} type={type} value={value} onChange={onChange} className={className} />
       {error && <ErrorText>{error}</ErrorText>}
     </label>

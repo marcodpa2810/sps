@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply font-body text-steel-600 antialiased bg-steel-50;
+    @apply font-body text-steel-600 antialiased bg-white;
     margin: 0;
     overflow-x: hidden;
     font-feature-settings: 'cv05', 'ss01';
@@ -75,11 +75,11 @@
   /* ── Section headline scale ── */
   .h-display {
     @apply font-display font-bold text-ink-900 leading-[1.02] tracking-tightest;
-    font-size: clamp(2rem, 1.2rem + 3.4vw, 3.6rem);
+    font-size: clamp(1.85rem, 1.1rem + 2.6vw, 3rem);
   }
   .h-section {
     @apply font-display font-bold text-ink-900 leading-[1.05] tracking-tightest;
-    font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.9rem);
+    font-size: clamp(1.55rem, 1rem + 1.8vw, 2.35rem);
   }
 
   /* ── Spotlight border card: a blue edge follows the cursor ── */
@@ -109,6 +109,14 @@
 }
 
 @layer utilities {
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.32'/%3E%3C/svg%3E");
+  }
+
   /* Blueprint grid texture (intentional brand motif, used sparingly) */
   .bp-grid {
     background-image:

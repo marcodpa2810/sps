@@ -47,7 +47,7 @@ export default function Marquee({ items, className = '' }) {
 
 function MarqueeChip({ label }) {
   return (
-    <span className="whitespace-nowrap rounded-xl border border-steel-200 bg-white px-6 py-3 font-display text-sm font-semibold text-steel-500 transition-colors duration-300 hover:border-brand-blue/30 hover:text-brand-blue">
+    <span className="whitespace-nowrap rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 font-display text-sm font-semibold text-white/62 transition-colors duration-300 hover:border-brand-blue/50 hover:text-brand-blueLight">
       {label}
     </span>
   )

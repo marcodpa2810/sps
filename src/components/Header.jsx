@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { List, X, ArrowUpRight } from '@phosphor-icons/react'
 
@@ -12,47 +12,35 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-
-  /* ── Scroll listener (replaces useScroll + useMotionValueEvent) ── */
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-[background-color,border-color] duration-300 ${
-        scrolled
-          ? 'bg-ink-950/85 backdrop-blur-xl border-b border-white/10'
-          : 'bg-transparent border-b border-transparent'
-      }`}
+      className="fixed inset-x-0 top-0 z-50 flex justify-center border-b border-steel-200 bg-white px-3 shadow-[0_16px_50px_-36px_rgba(11,20,38,.45)]"
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="flex items-center gap-3 group rounded-xl">
+      <div className="w-full max-w-[1400px] px-3 md:px-6">
+        <div className="flex h-20 items-center justify-between md:h-24 lg:h-28">
+          <Link to="/" className="group flex items-center gap-3 rounded-xl">
             <img
               src="/sps-logo.png"
               alt="SPS - Service Petroleum and Supply"
-              className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+              className="h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03] md:h-16 lg:h-20"
             />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1" aria-label="Navegacion principal">
+          <nav className="hidden items-center gap-3 md:flex" aria-label="Navegacion principal">
             {navLinks.map(({ to, label }) => (
-              <NavLink key={to} to={to} end={to === '/'} className="relative px-4 py-2 text-sm font-medium group">
+              <NavLink key={to} to={to} end={to === '/'} className="group relative px-4 py-3 text-sm font-extrabold">
                 {({ isActive }) => (
                   <>
                     <span
                       className={`relative z-10 transition-colors duration-200 ${
-                        isActive ? 'text-white' : 'text-steel-300 group-hover:text-white'
+                        isActive ? 'text-brand-blue' : 'text-ink-900/72 group-hover:text-ink-900'
                       }`}
                     >
                       {label}
                     </span>
                     {isActive && (
-                      <span className="absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-brand-blue" />
+                      <span className="absolute inset-x-4 bottom-1 h-0.5 rounded-full bg-brand-blueLight" />
                     )}
                   </>
                 )}
@@ -60,7 +48,7 @@ export default function Header() {
             ))}
             <Link
               to="/contacto"
-              className="ml-3 inline-flex items-center gap-1.5 bg-brand-red hover:bg-[#D81E34] text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.97]"
+              className="ml-3 inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-sm font-extrabold text-white transition-all duration-200 hover:gap-3 hover:bg-brand-blueLight active:scale-[0.97]"
             >
               Cotizar
               <ArrowUpRight size={15} weight="bold" />
@@ -68,7 +56,7 @@ export default function Header() {
           </nav>
 
           <button
-            className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+            className="rounded-full p-2 text-ink-900 transition-colors hover:bg-steel-100 md:hidden"
             onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? 'Cerrar menu' : 'Abrir menu'}
@@ -80,7 +68,7 @@ export default function Header() {
 
       {/* Mobile menu — CSS transition instead of AnimatePresence */}
       <div
-        className="md:hidden overflow-hidden bg-ink-950/95 backdrop-blur-xl border-t border-white/10 transition-all duration-300 ease-in-out"
+        className="absolute left-3 right-3 top-20 overflow-hidden rounded-b-3xl border border-t-0 border-steel-200 bg-white transition-all duration-300 ease-in-out md:hidden"
         style={{
           maxHeight: menuOpen ? '400px' : '0px',
           opacity: menuOpen ? 1 : 0,
@@ -103,8 +91,8 @@ export default function Header() {
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
                     isActive
-                      ? 'text-white bg-white/[0.06] border border-white/10'
-                      : 'text-steel-300 hover:text-white hover:bg-white/5'
+                      ? 'text-brand-blue bg-brand-blue/10 border border-brand-blue/20'
+                      : 'text-ink-900/70 hover:text-ink-900 hover:bg-steel-100'
                   }`
                 }
               >
@@ -112,11 +100,11 @@ export default function Header() {
               </NavLink>
             </div>
           ))}
-          <div className="mt-3 pt-3 border-t border-white/10">
+          <div className="mt-3 pt-3 border-t border-steel-200">
             <Link
               to="/contacto"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center justify-center gap-2 bg-brand-red text-white font-semibold px-5 py-3 rounded-xl text-sm"
+              className="flex items-center justify-center gap-2 rounded-full bg-brand-blue px-5 py-3 text-sm font-extrabold text-white"
             >
               Solicitar cotizacion
               <ArrowUpRight size={16} weight="bold" />
