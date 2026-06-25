@@ -100,10 +100,12 @@ export default function Proyectos() {
             {featuredCase && (
               <Reveal>
                 <article className="mb-6 grid overflow-hidden rounded-[1.5rem] border border-steel-200 bg-ink-950 text-white shadow-lift lg:grid-cols-[1.15fr_.85fr]">
-                  <div className="grid min-h-[34rem] sm:grid-cols-2">
-                    <FieldImage src={featuredCase.image} className="h-full min-h-[18rem] w-full object-cover" />
-                    <FieldImage src={featuredCase.secondImage} className="h-full min-h-[18rem] w-full object-cover" />
-                  </div>
+                  <ProjectEvidenceImages
+                    image={featuredCase.image}
+                    secondImage={featuredCase.secondImage}
+                    title={featuredCase.title}
+                    featured
+                  />
                   <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
                     <p className="mono-label mb-4 text-brand-blueLight">{featuredCase.category}</p>
                     <h2 className="font-display text-2xl font-bold leading-tight text-white sm:text-3xl">{featuredCase.title}</h2>
@@ -120,10 +122,11 @@ export default function Proyectos() {
               {visibleCases.slice(1).map((item) => (
                 <StaggerItem key={item.title}>
                   <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-steel-200 bg-white transition-[transform,border-color,box-shadow] duration-300 ease-field hover:-translate-y-1 hover:border-brand-blue hover:shadow-lift">
-                    <div className="grid h-72 grid-cols-2 overflow-hidden border-b border-steel-200">
-                      <FieldImage src={item.image} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      <FieldImage src={item.secondImage} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    </div>
+                    <ProjectEvidenceImages
+                      image={item.image}
+                      secondImage={item.secondImage}
+                      title={item.title}
+                    />
                     <div className="flex flex-1 flex-col p-6">
                       <p className="mono-label mb-3 text-brand-blue">{item.category}</p>
                       <h3 className="font-display text-xl font-bold leading-tight text-ink-900">{item.title}</h3>
@@ -199,5 +202,37 @@ export default function Proyectos() {
         </div>
       </section>
     </>
+  )
+}
+
+function ProjectEvidenceImages({ image, secondImage, title, featured = false }) {
+  return (
+    <div className={`relative overflow-hidden border-b border-steel-200 bg-ink-950 ${featured ? 'min-h-[34rem]' : 'h-80'}`}>
+      <FieldImage
+        src={image}
+        alt=""
+        className="h-full w-full object-cover transition-transform duration-700 ease-field group-hover:scale-[1.035]"
+        width={featured ? '1100' : '800'}
+        height={featured ? '900' : '520'}
+        sizes={featured ? '(min-width: 1024px) 55vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink-950/30 via-transparent to-transparent" />
+      <div className="absolute bottom-4 right-4 w-[46%] max-w-[17rem] rounded-2xl border-4 border-white bg-white shadow-[0_24px_70px_-28px_rgba(7,13,24,.65)] sm:bottom-5 sm:right-5">
+        <div className="aspect-[4/3] overflow-hidden rounded-[0.85rem] bg-ink-950">
+          <FieldImage
+            src={secondImage}
+            alt=""
+            className="h-full w-full object-cover"
+            width="520"
+            height="390"
+            sizes="(min-width: 768px) 18vw, 42vw"
+          />
+        </div>
+      </div>
+      <span className="absolute left-4 top-4 rounded-full border border-white/25 bg-ink-950/70 px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur">
+        Evidencia
+      </span>
+      <span className="sr-only">Imagenes de evidencia del proyecto {title}</span>
+    </div>
   )
 }
