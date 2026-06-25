@@ -25,53 +25,82 @@ export default function Home() {
             height="1080"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,13,24,.96)_0%,rgba(7,13,24,.82)_38%,rgba(7,13,24,.25)_78%,rgba(7,13,24,.05)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,13,24,.97)_0%,rgba(7,13,24,.84)_44%,rgba(7,13,24,.42)_74%,rgba(7,13,24,.12)_100%)]" />
           <div className="bp-grid absolute inset-0 opacity-20" />
           <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.08]" />
 
-          <div className="relative flex min-h-[calc(100dvh-8rem)] max-w-4xl flex-col justify-end px-5 pb-8 pt-28 sm:px-8 sm:pb-10 lg:px-12 lg:pb-12">
-            <motion.p
-              className="mono-label text-brand-redLight"
-              initial={{ y: 18, opacity: 0 }}
+          <div className="relative grid min-h-[calc(100dvh-8rem)] content-end gap-8 px-5 pb-8 pt-28 sm:px-8 sm:pb-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end lg:px-12 lg:pb-12">
+            <div className="max-w-4xl">
+              <motion.p
+                className="mono-label text-brand-redLight"
+                initial={{ y: 18, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.7, ease }}
+              >
+                Service Petroleum and Supply C.A.
+              </motion.p>
+              <motion.h1
+                className="mt-6 max-w-5xl font-display font-black uppercase leading-[0.86] tracking-tightest text-white"
+                style={{ fontSize: 'clamp(3.9rem, 9vw, 8.6rem)' }}
+                initial={{ y: 36, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.08, ease }}
+              >
+                Respuesta tecnica para operaciones criticas.
+              </motion.h1>
+              <motion.div
+                className="mt-7 max-w-2xl field-line pl-5"
+                initial={{ y: 26, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.85, delay: 0.22, ease }}
+              >
+                <p className="max-w-xl text-sm font-medium leading-relaxed text-steel-100 sm:text-base">
+                  Vapor, recuperacion de crudo, saneamiento, automatizacion y soporte industrial
+                  con equipos movilizados en campo.
+                </p>
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <Link to="/servicios" className="btn-primary group">
+                    Ver servicios
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-brand-blue transition-transform duration-300 ease-field group-hover:translate-x-1">
+                      <ArrowRight size={17} weight="bold" />
+                    </span>
+                  </Link>
+                  <Link to="/proyectos" className="btn-ghost-light">
+                    Ver evidencia
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+
+            <motion.aside
+              className="hidden rounded-2xl border border-white/15 bg-ink-950/72 p-3 shadow-[0_24px_70px_-35px_rgba(0,0,0,.75)] backdrop-blur-md lg:block"
+              initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.7, ease }}
+              transition={{ duration: 0.85, delay: 0.38, ease }}
+              aria-label="Capacidades destacadas SPS"
             >
-              Service Petroleum and Supply C.A.
-            </motion.p>
-            <motion.h1
-              className="mt-5 font-display font-black uppercase leading-[0.78] tracking-tightest text-white"
-              style={{ fontSize: 'clamp(6rem, 18vw, 17rem)' }}
-              initial={{ y: 36, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.9, delay: 0.08, ease }}
-            >
-              SPS
-            </motion.h1>
-            <motion.div
-              className="mt-7 max-w-2xl field-line pl-5"
-              initial={{ y: 26, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.85, delay: 0.22, ease }}
-            >
-              <h2 className="font-display text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-white sm:text-5xl">
-                Operaciones petroleras con equipos reales en campo.
-              </h2>
-              <p className="mt-5 max-w-xl text-sm font-medium leading-relaxed text-steel-100 sm:text-base">
-                Vapor, recuperacion de crudo, saneamiento, automatizacion y soporte industrial
-                para frentes que necesitan respuesta tecnica clara.
-              </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Link to="/servicios" className="btn-primary group">
-                  Ver servicios
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-brand-blue transition-transform duration-300 ease-field group-hover:translate-x-1">
-                    <ArrowRight size={17} weight="bold" />
-                  </span>
-                </Link>
-                <Link to="/proyectos" className="btn-ghost-light">
-                  Ver proyectos
-                </Link>
+              <div className="media-frame h-40 rounded-xl">
+                <FieldImage
+                  src={media.bajoGrandeCaldera}
+                  alt="Caldera portatil SPS instalada en patio operativo"
+                  className="h-full w-full object-cover"
+                  width="520"
+                  height="320"
+                  sizes="24rem"
+                />
               </div>
-            </motion.div>
+              <div className="p-3">
+                <p className="mono-label text-brand-blueLight">Dossier operativo</p>
+                <div className="mt-4 grid gap-3">
+                  {['Vapor y recuperacion', 'Saneamiento industrial', 'PLC, RTU y SCADA'].map((item) => (
+                    <div key={item} className="flex items-center justify-between border-t border-white/10 pt-3">
+                      <span className="text-sm font-extrabold text-white">{item}</span>
+                      <span className="h-2 w-2 rounded-full bg-brand-redLight" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.aside>
           </div>
         </div>
       </section>
