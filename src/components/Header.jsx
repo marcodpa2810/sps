@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { List, X, ArrowUpRight } from '@phosphor-icons/react'
+import { ArrowUpRight, List, X } from '@phosphor-icons/react'
 
 const navLinks = [
   { to: '/', label: 'Inicio' },
@@ -14,103 +14,94 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header
-      className="fixed inset-x-0 top-0 z-50 flex justify-center border-b border-steel-200 bg-white px-3 shadow-[0_16px_50px_-36px_rgba(11,20,38,.45)]"
-    >
-      <div className="w-full max-w-[1400px] px-3 md:px-6">
-        <div className="flex h-20 items-center justify-between md:h-24 lg:h-28">
-          <Link to="/" className="group flex items-center gap-3 rounded-xl">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="flex min-h-16 items-center justify-between rounded-[1.35rem] border border-white/70 bg-white/[0.92] px-3 shadow-[0_18px_70px_-45px_rgba(11,20,38,.65)] backdrop-blur-xl sm:min-h-20 sm:px-5">
+          <Link to="/" className="group flex items-center gap-3 rounded-xl" onClick={() => setMenuOpen(false)}>
             <img
               src="/sps-logo.png"
               alt="SPS - Service Petroleum and Supply"
-              className="h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03] md:h-16 lg:h-20"
+              className="h-12 w-auto object-contain transition-transform duration-300 ease-field group-hover:scale-[1.03] sm:h-14 lg:h-16"
+              width="180"
+              height="80"
             />
           </Link>
 
-          <nav className="hidden items-center gap-3 md:flex" aria-label="Navegacion principal">
+          <nav className="hidden items-center gap-1 md:flex" aria-label="Navegacion principal">
             {navLinks.map(({ to, label }) => (
-              <NavLink key={to} to={to} end={to === '/'} className="group relative px-4 py-3 text-sm font-extrabold">
+              <NavLink
+                key={to}
+                to={to}
+                end={to === '/'}
+                className="group relative rounded-full px-4 py-3 text-sm font-extrabold transition-colors duration-200 ease-field"
+              >
                 {({ isActive }) => (
-                  <>
-                    <span
-                      className={`relative z-10 transition-colors duration-200 ${
-                        isActive ? 'text-brand-blue' : 'text-ink-900/72 group-hover:text-ink-900'
-                      }`}
-                    >
-                      {label}
-                    </span>
-                    {isActive && (
-                      <span className="absolute inset-x-4 bottom-1 h-0.5 rounded-full bg-brand-blueLight" />
-                    )}
-                  </>
+                  <span className={isActive ? 'text-brand-blue' : 'text-ink-900/70 group-hover:text-ink-900'}>
+                    {label}
+                  </span>
                 )}
               </NavLink>
             ))}
-            <Link
-              to="/contacto"
-              className="ml-3 inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-sm font-extrabold text-white transition-all duration-200 hover:gap-3 hover:bg-brand-blueLight active:scale-[0.97]"
-            >
-              Cotizar
-              <ArrowUpRight size={15} weight="bold" />
-            </Link>
           </nav>
 
+          <div className="hidden items-center gap-3 md:flex">
+            <Link to="/contacto" className="btn-primary min-h-11 px-4 py-2">
+              Cotizar
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-brand-blue">
+                <ArrowUpRight size={15} weight="bold" />
+              </span>
+            </Link>
+          </div>
+
           <button
-            className="rounded-full p-2 text-ink-900 transition-colors hover:bg-steel-100 md:hidden"
-            onClick={() => setMenuOpen((o) => !o)}
+            type="button"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-steel-200 bg-steel-50 text-ink-900 transition-[transform,background-color,border-color] duration-200 ease-field hover:bg-white active:scale-[0.97] md:hidden"
+            onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
             aria-label={menuOpen ? 'Cerrar menu' : 'Abrir menu'}
           >
-            {menuOpen ? <X size={24} /> : <List size={24} />}
+            {menuOpen ? <X size={22} weight="bold" /> : <List size={22} weight="bold" />}
           </button>
         </div>
-      </div>
 
-      {/* Mobile menu — CSS transition instead of AnimatePresence */}
-      <div
-        className="absolute left-3 right-3 top-20 overflow-hidden rounded-b-3xl border border-t-0 border-steel-200 bg-white transition-all duration-300 ease-in-out md:hidden"
-        style={{
-          maxHeight: menuOpen ? '400px' : '0px',
-          opacity: menuOpen ? 1 : 0,
-        }}
-      >
-        <nav className="px-4 py-5 flex flex-col gap-1" aria-label="Menu movil">
-          {navLinks.map(({ to, label }, i) => (
-            <div
-              key={to}
-              style={{
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? 'translateX(0)' : 'translateX(-12px)',
-                transition: `opacity 0.3s ease ${0.05 + i * 0.05}s, transform 0.3s ease ${0.05 + i * 0.05}s`,
-              }}
-            >
+        <div
+          id="mobile-menu"
+          className={`mt-2 overflow-hidden rounded-[1.35rem] border border-steel-200 bg-white shadow-lift transition-[max-height,opacity,transform] duration-300 ease-field md:hidden ${
+            menuOpen ? 'max-h-[520px] translate-y-0 opacity-100' : 'max-h-0 -translate-y-2 opacity-0'
+          }`}
+        >
+          <nav className="flex flex-col gap-1 p-3" aria-label="Menu movil">
+            {navLinks.map(({ to, label }, index) => (
               <NavLink
+                key={to}
                 to={to}
                 end={to === '/'}
                 onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                  `rounded-xl px-4 py-3 text-sm font-bold transition-[transform,background-color,color] duration-300 ease-field ${
                     isActive
-                      ? 'text-brand-blue bg-brand-blue/10 border border-brand-blue/20'
-                      : 'text-ink-900/70 hover:text-ink-900 hover:bg-steel-100'
+                      ? 'bg-brand-blue text-white'
+                      : 'text-ink-900/72 hover:bg-steel-100 hover:text-ink-900'
                   }`
                 }
+                style={{
+                  transitionDelay: menuOpen ? `${index * 35}ms` : '0ms',
+                }}
               >
                 {label}
               </NavLink>
-            </div>
-          ))}
-          <div className="mt-3 pt-3 border-t border-steel-200">
+            ))}
             <Link
               to="/contacto"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center justify-center gap-2 rounded-full bg-brand-blue px-5 py-3 text-sm font-extrabold text-white"
+              className="btn-primary mt-3 w-full"
             >
               Solicitar cotizacion
-              <ArrowUpRight size={16} weight="bold" />
+              <ArrowUpRight size={17} weight="bold" />
             </Link>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </div>
     </header>
   )

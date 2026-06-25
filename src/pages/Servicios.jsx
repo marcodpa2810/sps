@@ -17,7 +17,7 @@ export default function Servicios() {
       >
         <div className="mt-9 flex flex-wrap gap-3">
           {serviceGroups.map((group) => (
-            <a key={group.id} href={`#${group.id}`} className="btn-ghost-light rounded-none">
+            <a key={group.id} href={`#${group.id}`} className="btn-ghost-light">
               {group.eyebrow}
             </a>
           ))}
@@ -103,10 +103,10 @@ export default function Servicios() {
           <div>
             <p className="mono-label mb-4 text-brand-red">Cotizacion y visita tecnica</p>
             <h2 className="max-w-4xl font-display text-2xl font-bold leading-tight text-ink-900 sm:text-3xl">
-              Cuéntanos el area, el fluido, el equipo disponible y la urgencia. SPS arma la respuesta.
+              Cuentanos el area, el fluido, el equipo disponible y la urgencia. SPS arma la respuesta.
             </h2>
           </div>
-          <Link to="/contacto" className="btn-primary rounded-none text-sm">
+          <Link to="/contacto" className="btn-primary text-sm">
             Contactar ahora <ArrowRight size={20} weight="bold" />
           </Link>
         </div>

@@ -119,7 +119,7 @@ export default function Proyectos() {
             <Stagger className="grid gap-5 md:grid-cols-2">
               {visibleCases.slice(1).map((item) => (
                 <StaggerItem key={item.title}>
-                  <article className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-steel-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-lift">
+                  <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-steel-200 bg-white transition-[transform,border-color,box-shadow] duration-300 ease-field hover:-translate-y-1 hover:border-brand-blue hover:shadow-lift">
                     <div className="grid h-72 grid-cols-2 overflow-hidden border-b border-steel-200">
                       <FieldImage src={item.image} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                       <FieldImage src={item.secondImage} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
@@ -193,7 +193,7 @@ export default function Proyectos() {
           <h2 className="max-w-4xl font-display text-2xl font-bold leading-tight text-ink-900 sm:text-3xl">
             Documentamos el servicio desde el inicio para que cada cierre tenga evidencia tecnica.
           </h2>
-          <Link to="/contacto" className="btn-red rounded-none text-sm">
+          <Link to="/contacto" className="btn-red text-sm">
             Solicitar servicio <ArrowRight size={20} weight="bold" />
           </Link>
         </div>

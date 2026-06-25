@@ -1,9 +1,7 @@
-import { useRef, createContext, useContext } from 'react'
+import { Children, cloneElement, createContext, isValidElement, useContext } from 'react'
 import { useInView, useReducedMotion } from '../lib/animations'
 
-export const EASE = [0.16, 1, 0.3, 1]
-
-const StaggerCtx = createContext({ inView: false, reduce: false, gap: 0.08, indexRef: null })
+const StaggerCtx = createContext({ inView: false, reduce: false, gap: 0.08 })
 
 /**
  * Reveal — fades + slides content in as it enters the viewport.
@@ -54,23 +52,24 @@ export function Stagger({
   const [ref, inView] = useInView({ once, amount })
   const reduce = useReducedMotion()
   const Tag = as
-  const indexRef = useRef(0)
-  indexRef.current = 0
+  const staggeredChildren = Children.map(children, (child, index) => {
+    if (!isValidElement(child)) return child
+    return cloneElement(child, { staggerIndex: index })
+  })
 
   return (
-    <StaggerCtx.Provider value={{ inView, reduce, gap, indexRef }}>
+    <StaggerCtx.Provider value={{ inView, reduce, gap }}>
       <Tag ref={ref} className={className}>
-        {children}
+        {staggeredChildren}
       </Tag>
     </StaggerCtx.Provider>
   )
 }
 
-export function StaggerItem({ children, className = '', y = 24, as = 'div' }) {
-  const { inView, reduce, gap, indexRef } = useContext(StaggerCtx)
+export function StaggerItem({ children, className = '', y = 24, as = 'div', staggerIndex = 0 }) {
+  const { inView, reduce, gap } = useContext(StaggerCtx)
   const Tag = as
-  const i = indexRef.current++
-  const delay = i * gap
+  const delay = staggerIndex * gap
   const show = inView || reduce
 
   return (

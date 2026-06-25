@@ -40,13 +40,13 @@ export default function Contacto() {
     if (errors[event.target.name]) setErrors({ ...errors, [event.target.name]: '' })
   }
 
-  const inputClass = 'w-full rounded-2xl border border-steel-200 bg-white px-4 py-3 text-sm text-ink-900 outline-none transition placeholder:text-steel-400 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20'
+  const inputClass = 'w-full rounded-2xl border border-steel-200 bg-white px-4 py-3 text-sm font-medium text-ink-900 transition-[border-color,box-shadow,background-color] duration-200 ease-field placeholder:text-steel-400 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20'
 
   return (
     <>
       <PageHero
         kicker="Contacto"
-        title="Cuéntanos que necesita"
+        title="Cuentanos que necesita"
         accent="tu operacion."
         subtitle="Mientras mas clara sea la informacion de campo, mas rapida puede ser la respuesta tecnica."
         image={media.heroContact}
@@ -57,7 +57,7 @@ export default function Contacto() {
           <Reveal>
             <h2 className="mb-6 font-display text-2xl font-bold leading-tight text-ink-900 sm:text-3xl">Canales directos</h2>
             <div className="space-y-4">
-              <div className="rounded-[1.5rem] border border-steel-200 bg-steel-50 p-6">
+              <div className="surface-panel rounded-2xl p-6">
                 <MapPin size={28} className="mb-4 text-brand-red" />
                 <h3 className="font-display text-xl font-bold text-ink-900">San Francisco, Maracaibo</h3>
                 <p className="mt-2 text-sm leading-relaxed text-steel-600">
@@ -65,7 +65,7 @@ export default function Contacto() {
                   Zulia, Venezuela
                 </p>
               </div>
-              <div className="rounded-[1.5rem] border border-steel-200 bg-steel-50 p-6">
+              <div className="surface-panel rounded-2xl p-6">
                 <Phone size={28} className="mb-4 text-brand-blueLight" />
                 <h3 className="font-display text-xl font-bold text-ink-900">Telefonos</h3>
                 <a href="tel:+582613226494" className="mt-2 block text-sm font-semibold text-steel-700 hover:text-brand-blue">
@@ -75,7 +75,7 @@ export default function Contacto() {
                   +58 414 636 1373
                 </a>
               </div>
-              <div className="rounded-[1.5rem] border border-steel-200 bg-steel-50 p-6">
+              <div className="surface-panel rounded-2xl p-6">
                 <Clock size={28} className="mb-4 text-brand-blueLight" />
                 <h3 className="font-display text-xl font-bold text-ink-900">Respuesta tecnica</h3>
                 <p className="mt-2 text-sm leading-relaxed text-steel-600">
@@ -86,7 +86,7 @@ export default function Contacto() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="rounded-[2rem] border border-steel-200 bg-steel-50 p-6 shadow-lift sm:p-8 lg:p-10">
+            <div className="rounded-[2rem] border border-steel-200 bg-white p-6 shadow-lift sm:p-8 lg:p-10">
               {submitted ? (
                 <div className="py-16 text-center">
                   <CheckCircle size={64} weight="fill" className="mx-auto text-emerald-600" />
@@ -103,10 +103,10 @@ export default function Contacto() {
                   </div>
 
                   <div className="grid gap-5 sm:grid-cols-2">
-                    <Field label="Nombre" name="name" value={form.name} onChange={handleChange} error={errors.name} className={inputClass} />
-                    <Field label="Empresa" name="company" value={form.company} onChange={handleChange} className={inputClass} />
-                    <Field label="Telefono" name="phone" value={form.phone} onChange={handleChange} error={errors.phone} className={inputClass} />
-                    <Field label="Correo" name="email" type="email" value={form.email} onChange={handleChange} className={inputClass} />
+                    <Field label="Nombre" name="name" value={form.name} onChange={handleChange} error={errors.name} className={inputClass} autoComplete="name" />
+                    <Field label="Empresa" name="company" value={form.company} onChange={handleChange} className={inputClass} autoComplete="organization" />
+                    <Field label="Telefono" name="phone" type="tel" inputMode="tel" value={form.phone} onChange={handleChange} error={errors.phone} className={inputClass} autoComplete="tel" />
+                    <Field label="Correo" name="email" type="email" inputMode="email" value={form.email} onChange={handleChange} className={inputClass} autoComplete="email" />
                   </div>
 
                   <div className="grid gap-5 sm:grid-cols-2">
@@ -119,7 +119,7 @@ export default function Contacto() {
                         ))}
                       </select>
                     </label>
-                    <Field label="Ubicacion del trabajo" name="location" value={form.location} onChange={handleChange} className={inputClass} />
+                    <Field label="Ubicacion del trabajo" name="location" value={form.location} onChange={handleChange} className={inputClass} autoComplete="address-level2" />
                   </div>
 
                   <label className="block">
@@ -140,13 +140,15 @@ export default function Contacto() {
                       rows={6}
                       value={form.message}
                       onChange={handleChange}
+                      aria-invalid={errors.message ? 'true' : undefined}
+                      aria-describedby={errors.message ? 'message-error' : undefined}
                       className={`${inputClass} resize-none`}
                       placeholder="Ejemplo: calentamiento de crudo en patio de tanques, recuperacion en fosa, inyeccion de vapor, telemetria..."
                     />
-                    {errors.message && <ErrorText>{errors.message}</ErrorText>}
+                    {errors.message && <ErrorText id="message-error">{errors.message}</ErrorText>}
                   </label>
 
-                  <button type="submit" className="btn-primary w-full rounded-none text-sm">
+                  <button type="submit" className="btn-primary w-full text-sm">
                     Enviar solicitud <PaperPlaneTilt size={20} weight="fill" />
                   </button>
                 </form>
@@ -159,19 +161,31 @@ export default function Contacto() {
   )
 }
 
-function Field({ label, name, value, onChange, error, className, type = 'text' }) {
+function Field({ label, name, value, onChange, error, className, type = 'text', inputMode, autoComplete }) {
+  const errorId = error ? `${name}-error` : undefined
+
   return (
     <label className="block">
       <span className="mb-2 block text-sm font-bold text-ink-900">{label}</span>
-      <input name={name} type={type} value={value} onChange={onChange} className={className} />
-      {error && <ErrorText>{error}</ErrorText>}
+      <input
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        inputMode={inputMode}
+        autoComplete={autoComplete}
+        aria-invalid={error ? 'true' : undefined}
+        aria-describedby={errorId}
+        className={className}
+      />
+      {error && <ErrorText id={errorId}>{error}</ErrorText>}
     </label>
   )
 }
 
-function ErrorText({ children }) {
+function ErrorText({ id, children }) {
   return (
-    <p className="mt-2 flex items-center gap-1 text-sm font-semibold text-brand-red">
+    <p id={id} className="mt-2 flex items-center gap-1 text-sm font-semibold text-brand-red">
       <WarningCircle size={15} /> {children}
     </p>
   )

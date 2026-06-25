@@ -35,10 +35,12 @@ export default {
         },
       },
       fontFamily: {
-        display: ['"Barlow Condensed"', 'system-ui', 'sans-serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['"Barlow Condensed"', 'system-ui', 'sans-serif'],
+        display: ['"Barlow Condensed"', 'Montserrat', 'system-ui', 'sans-serif'],
+        body: ['Montserrat', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+      },
+      transitionTimingFunction: {
+        field: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
       letterSpacing: {
         tightest: '-0.04em',

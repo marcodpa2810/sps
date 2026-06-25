@@ -80,7 +80,7 @@ export default function Nosotros() {
           <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {capabilityIcons.map(({ label, icon: Icon }) => (
               <StaggerItem key={label}>
-                <div className="h-full rounded-[1.25rem] border border-steel-200 bg-steel-50 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-lift">
+                <div className="h-full rounded-2xl border border-steel-200 bg-steel-50 p-5 transition-[transform,border-color,box-shadow,background-color] duration-300 ease-field hover:-translate-y-1 hover:border-brand-blue hover:bg-white hover:shadow-lift">
                   <Icon size={30} weight="bold" className="text-brand-blue" />
                   <p className="mt-4 text-sm font-bold leading-tight text-ink-900">{label}</p>
                 </div>
@@ -116,7 +116,7 @@ export default function Nosotros() {
           <h2 className="max-w-4xl font-display text-2xl font-bold leading-tight text-white sm:text-3xl">
             Conoce los servicios que SPS puede llevar a tu operacion.
           </h2>
-          <Link to="/servicios" className="btn-primary rounded-none text-sm">
+          <Link to="/servicios" className="btn-primary text-sm">
             Ver servicios <ArrowRight size={20} weight="bold" />
           </Link>
         </div>

@@ -11,9 +11,12 @@ export default function Layout() {
   }, [pathname])
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="flex min-h-[100dvh] flex-col bg-white">
+      <a href="#main-content" className="skip-link">
+        Saltar al contenido
+      </a>
       <Header />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Outlet />
       </main>
       <Footer />

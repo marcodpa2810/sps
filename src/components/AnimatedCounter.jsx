@@ -8,7 +8,7 @@ import { useInView, useReducedMotion } from '../lib/animations'
  */
 export default function AnimatedCounter({ value, prefix = '', suffix = '', className = '' }) {
   const ref = useRef(null)
-  const [refObs, inView] = useInView({ once: true, amount: 0.6 })
+  const [observerRef, inView] = useInView({ once: true, amount: 0.6 })
   const reduce = useReducedMotion()
 
   // Parse a number out of strings like "7+", "100%", "1.500", "5"
@@ -45,7 +45,7 @@ export default function AnimatedCounter({ value, prefix = '', suffix = '', class
   }, [inView, reduce, target, isThousand, prefix, trailingSuffix])
 
   return (
-    <span ref={(el) => { ref.current = el; refObs.current = el }} className={className}>
+    <span ref={(el) => { ref.current = el; observerRef.current = el }} className={className}>
       {reduce ? value : `${prefix}0${trailingSuffix}`}
     </span>
   )
