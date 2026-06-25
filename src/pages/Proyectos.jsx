@@ -206,32 +206,63 @@ export default function Proyectos() {
 }
 
 function ProjectEvidenceImages({ image, secondImage, title, featured = false }) {
+  const [activeImage, setActiveImage] = useState(image)
+  const images = [
+    { src: image, label: 'Vista 1' },
+    { src: secondImage, label: 'Vista 2' },
+  ]
+
   return (
-    <div className={`relative overflow-hidden border-b border-steel-200 bg-ink-950 ${featured ? 'min-h-[34rem]' : 'h-80'}`}>
-      <FieldImage
-        src={image}
-        alt=""
-        className="h-full w-full object-cover transition-transform duration-700 ease-field group-hover:scale-[1.035]"
-        width={featured ? '1100' : '800'}
-        height={featured ? '900' : '520'}
-        sizes={featured ? '(min-width: 1024px) 55vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink-950/30 via-transparent to-transparent" />
-      <div className="absolute bottom-4 right-4 w-[46%] max-w-[17rem] rounded-2xl border-4 border-white bg-white shadow-[0_24px_70px_-28px_rgba(7,13,24,.65)] sm:bottom-5 sm:right-5">
-        <div className="aspect-[4/3] overflow-hidden rounded-[0.85rem] bg-ink-950">
-          <FieldImage
-            src={secondImage}
-            alt=""
-            className="h-full w-full object-cover"
-            width="520"
-            height="390"
-            sizes="(min-width: 768px) 18vw, 42vw"
-          />
-        </div>
+    <div className="border-b border-steel-200 bg-steel-50">
+      <div className={`relative overflow-hidden bg-ink-950 ${featured ? 'h-[34rem]' : 'h-72'}`}>
+        <FieldImage
+          src={activeImage}
+          alt=""
+          className="h-full w-full object-cover transition-transform duration-700 ease-field group-hover:scale-[1.035]"
+          width={featured ? '1100' : '800'}
+          height={featured ? '900' : '520'}
+          sizes={featured ? '(min-width: 1024px) 55vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-950/35 via-transparent to-transparent" />
+        <span className="absolute left-4 top-4 rounded-full border border-white/25 bg-ink-950/70 px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur">
+          Evidencia
+        </span>
       </div>
-      <span className="absolute left-4 top-4 rounded-full border border-white/25 bg-ink-950/70 px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur">
-        Evidencia
-      </span>
+
+      <div className={`grid grid-cols-2 gap-2 bg-white p-3 ${featured ? 'sm:p-4' : ''}`}>
+        {images.map((item) => {
+          const selected = activeImage === item.src
+
+          return (
+            <button
+              key={item.src}
+              type="button"
+              onClick={() => setActiveImage(item.src)}
+              className={`group/thumb overflow-hidden rounded-xl border p-1 text-left transition-[border-color,box-shadow,transform] duration-300 ease-field active:scale-[0.98] ${
+                selected
+                  ? 'border-brand-blue shadow-[0_12px_30px_-20px_rgba(0,87,184,.8)]'
+                  : 'border-steel-200 hover:border-brand-red'
+              }`}
+              aria-pressed={selected}
+              aria-label={`Mostrar ${item.label} de ${title}`}
+            >
+              <span className="block aspect-[16/9] overflow-hidden rounded-lg bg-ink-950">
+                <FieldImage
+                  src={item.src}
+                  alt=""
+                  className="h-full w-full object-cover transition-transform duration-500 ease-field group-hover/thumb:scale-[1.04]"
+                  width="360"
+                  height="220"
+                  sizes="(min-width: 768px) 12vw, 42vw"
+                />
+              </span>
+              <span className={`mt-2 block px-1 pb-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] ${selected ? 'text-brand-blue' : 'text-steel-500'}`}>
+                {item.label}
+              </span>
+            </button>
+          )
+        })}
+      </div>
       <span className="sr-only">Imagenes de evidencia del proyecto {title}</span>
     </div>
   )

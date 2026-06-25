@@ -76,19 +76,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-steel-50 px-4 pb-12 text-ink-900 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[1400px] border-y border-steel-200 py-6">
-          <p className="mono-label mb-4 text-steel-500">Operaciones asociadas</p>
-          <div className="flex flex-wrap gap-x-8 gap-y-3">
-            {clients.map((client) => (
-              <span key={client} className="text-sm font-extrabold uppercase tracking-wide text-ink-900">
-                {client}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="bg-steel-50 py-20 text-ink-900 lg:py-28">
         <div className="section-shell grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
           <Reveal className="field-line pl-6">
@@ -177,6 +164,26 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="border-y border-steel-200 bg-white py-14 text-ink-900">
+        <div className="section-shell grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-center">
+          <Reveal>
+            <p className="mono-label text-brand-red">Nuestros clientes</p>
+            <h2 className="mt-4 max-w-xl font-display text-3xl font-black uppercase leading-[0.96] tracking-tight text-ink-900 sm:text-4xl">
+              Aliados de operaciones petroleras e industriales.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="grid gap-px overflow-hidden rounded-2xl border border-steel-200 bg-steel-200 sm:grid-cols-2 lg:grid-cols-4">
+              {clients.map((client) => (
+                <div key={client} className="flex min-h-24 items-center justify-center bg-steel-50 px-5 text-center transition-colors duration-300 ease-field hover:bg-white">
+                  <span className="text-sm font-extrabold uppercase tracking-[0.08em] text-ink-900">{client}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
