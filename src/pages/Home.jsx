@@ -225,7 +225,7 @@ export default function Home() {
                 const logo = clientLogoMap[client]
 
                 return (
-                <div key={client} className="flex min-h-28 items-center justify-center bg-steel-50 px-5 text-center transition-colors duration-300 ease-field hover:bg-white">
+                <div key={client} className="flex min-h-28 items-center justify-center bg-white px-5 text-center transition-colors duration-300 ease-field hover:bg-steel-50">
                   {logo ? (
                     <img
                       src={logo.src}
