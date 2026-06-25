@@ -4,7 +4,7 @@ export default function PageHero({ kicker, title, accent, subtitle, image, child
   const centered = align === 'center'
 
   return (
-    <section className="relative isolate min-h-[72dvh] overflow-hidden bg-ink-950 pb-16 pt-36 text-white lg:pb-24 lg:pt-44">
+    <section className="relative isolate flex min-h-[100dvh] items-end overflow-hidden bg-ink-950 pb-16 pt-36 text-white lg:pb-24 lg:pt-44">
       {image && (
         <FieldImage
           src={image}
@@ -22,7 +22,7 @@ export default function PageHero({ kicker, title, accent, subtitle, image, child
       <div className="bp-grid absolute inset-0 opacity-25" />
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.08]" />
 
-      <div className="section-shell relative">
+      <div className="section-shell relative w-full">
         <div className={`${centered ? 'mx-auto text-center' : ''} max-w-5xl`}>
           {kicker && (
             <p className="mono-label mb-5 text-brand-blueLight">
