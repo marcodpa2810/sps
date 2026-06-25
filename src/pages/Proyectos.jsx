@@ -40,20 +40,7 @@ export default function Proyectos() {
         accent="imagenes reales."
         subtitle="Trabajos petroleros e industriales documentados en Boscan, Tia Juana, Bajo Grande, costas, patios y estaciones."
         image={media.heroProjects}
-      >
-        <div className="mt-10 grid max-w-4xl border border-white/20 bg-ink-950/75 text-left backdrop-blur sm:grid-cols-3">
-          {[
-            ['Registro', 'Antes / despues'],
-            ['Frentes', 'Vapor, saneamiento, control'],
-            ['Soporte', 'Fotos reales de campo'],
-          ].map(([label, value]) => (
-            <div key={label} className="border-b border-white/15 p-5 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
-              <span className="block font-mono text-[11px] uppercase tracking-[0.18em] text-brand-blueLight">{label}</span>
-              <strong className="mt-3 block font-display text-xl font-bold leading-tight text-white">{value}</strong>
-            </div>
-          ))}
-        </div>
-      </PageHero>
+      />
 
       <section className="bg-white py-20 text-ink-900 lg:py-28">
         <div className="mx-auto grid max-w-[1400px] gap-10 px-4 sm:px-6 lg:grid-cols-[18rem_1fr] lg:px-8">
