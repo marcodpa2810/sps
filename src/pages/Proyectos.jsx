@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle, FunnelSimple, Images, MapPin } from '@phosphor-icons/react'
 import PageHero from '../components/PageHero'
@@ -206,64 +206,49 @@ export default function Proyectos() {
 }
 
 function ProjectEvidenceImages({ image, secondImage, title, featured = false }) {
-  const [activeImage, setActiveImage] = useState(image)
-  const images = [
-    { src: image, label: 'Vista 1' },
-    { src: secondImage, label: 'Vista 2' },
-  ]
+  const [activeIndex, setActiveIndex] = useState(0)
+  const images = [image, secondImage]
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((index) => (index + 1) % images.length)
+    }, 5000)
+
+    return () => window.clearInterval(interval)
+  }, [images.length])
 
   return (
-    <div className="border-b border-steel-200 bg-steel-50">
+    <div className="border-b border-steel-200 bg-ink-950">
       <div className={`relative overflow-hidden bg-ink-950 ${featured ? 'h-[34rem]' : 'h-72'}`}>
-        <FieldImage
-          src={activeImage}
-          alt=""
-          className="h-full w-full object-cover transition-transform duration-700 ease-field group-hover:scale-[1.035]"
-          width={featured ? '1100' : '800'}
-          height={featured ? '900' : '520'}
-          sizes={featured ? '(min-width: 1024px) 55vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
-        />
+        {images.map((src, index) => (
+          <FieldImage
+            key={src}
+            src={src}
+            alt=""
+            className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-700 ease-field group-hover:scale-[1.035] ${
+              activeIndex === index ? 'opacity-100' : 'opacity-0'
+            }`}
+            width={featured ? '1100' : '800'}
+            height={featured ? '900' : '520'}
+            sizes={featured ? '(min-width: 1024px) 55vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-t from-ink-950/35 via-transparent to-transparent" />
         <span className="absolute left-4 top-4 rounded-full border border-white/25 bg-ink-950/70 px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur">
           Evidencia
         </span>
-      </div>
-
-      <div className={`grid grid-cols-2 gap-2 bg-white p-3 ${featured ? 'sm:p-4' : ''}`}>
-        {images.map((item) => {
-          const selected = activeImage === item.src
-
-          return (
-            <button
-              key={item.src}
-              type="button"
-              onClick={() => setActiveImage(item.src)}
-              className={`group/thumb overflow-hidden rounded-xl border p-1 text-left transition-[border-color,box-shadow,transform] duration-300 ease-field active:scale-[0.98] ${
-                selected
-                  ? 'border-brand-blue shadow-[0_12px_30px_-20px_rgba(0,87,184,.8)]'
-                  : 'border-steel-200 hover:border-brand-red'
+        <div className="absolute bottom-4 right-4 flex gap-2" aria-hidden="true">
+          {images.map((src, index) => (
+            <span
+              key={src}
+              className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ease-field ${
+                activeIndex === index ? 'w-8 bg-white' : 'w-3 bg-white/45'
               }`}
-              aria-pressed={selected}
-              aria-label={`Mostrar ${item.label} de ${title}`}
-            >
-              <span className="block aspect-[16/9] overflow-hidden rounded-lg bg-ink-950">
-                <FieldImage
-                  src={item.src}
-                  alt=""
-                  className="h-full w-full object-cover transition-transform duration-500 ease-field group-hover/thumb:scale-[1.04]"
-                  width="360"
-                  height="220"
-                  sizes="(min-width: 768px) 12vw, 42vw"
-                />
-              </span>
-              <span className={`mt-2 block px-1 pb-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] ${selected ? 'text-brand-blue' : 'text-steel-500'}`}>
-                {item.label}
-              </span>
-            </button>
-          )
-        })}
+            />
+          ))}
+        </div>
       </div>
-      <span className="sr-only">Imagenes de evidencia del proyecto {title}</span>
+      <span className="sr-only">Imagenes de evidencia rotativa del proyecto {title}</span>
     </div>
   )
 }
