@@ -7,6 +7,21 @@ import { Reveal, Stagger, StaggerItem } from '../lib/motion'
 
 const ease = [0.16, 1, 0.3, 1]
 
+const clientLogoMap = {
+  PDVSA: {
+    src: '/assets/client-logos/pdvsa.png',
+    alt: 'PDVSA',
+  },
+  Petroboscan: {
+    src: '/assets/client-logos/petroboscan.png',
+    alt: 'PDVSA Petroboscan',
+  },
+  Chevron: {
+    src: '/assets/client-logos/chevron.png',
+    alt: 'Chevron',
+  },
+}
+
 export default function Home() {
   const mainCases = projectCases.slice(0, 3)
   const heroImage = '/assets/sps-field/hero-home-field.jpg'
@@ -206,11 +221,25 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="grid gap-px overflow-hidden rounded-2xl border border-steel-200 bg-steel-200 sm:grid-cols-2 lg:grid-cols-4">
-              {clients.map((client) => (
-                <div key={client} className="flex min-h-24 items-center justify-center bg-steel-50 px-5 text-center transition-colors duration-300 ease-field hover:bg-white">
-                  <span className="text-sm font-extrabold uppercase tracking-[0.08em] text-ink-900">{client}</span>
+              {clients.map((client) => {
+                const logo = clientLogoMap[client]
+
+                return (
+                <div key={client} className="flex min-h-28 items-center justify-center bg-steel-50 px-5 text-center transition-colors duration-300 ease-field hover:bg-white">
+                  {logo ? (
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="max-h-16 w-auto max-w-[11rem] object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <span className="text-sm font-extrabold uppercase tracking-[0.08em] text-ink-900">{client}</span>
+                  )}
                 </div>
-              ))}
+                )
+              })}
             </div>
           </Reveal>
         </div>
